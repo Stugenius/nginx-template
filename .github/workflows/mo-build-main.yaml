@@ -51,8 +51,7 @@ jobs:
           tags: |
             ${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
             ${{ vars.MO_IMAGE_NAME__MAIN }}:latest
-          build-args: |
-            VERSION=${{ env.VERSION }}
+          build-args: ''
       - id: releaseWithMogenius-d92c3b1d4ddf6006c1b3
         name: Release with mogenius
         uses: mogenius/mogenius-release-action@v1
@@ -65,3 +64,15 @@ jobs:
           containerName: nginx
           keyKind: ${{ vars.MO_API_KIND__MAIN }}
           token: ${{ secrets.MO_API_TOKEN__d92c3b1d4ddf6006c1b3__MAIN }}
+      - id: releaseWithMogenius-63FF515A77B8B12D3273
+        name: Release with mogenius
+        uses: mogenius/mogenius-release-action@v1
+        with:
+          dev: false
+          image: ${{ vars.MO_REGISTRY_URL__MAIN }}/${{ vars.MO_IMAGE_NAME__MAIN }}:${{ env.VERSION }}
+          kind: Deployment
+          namespace: gitea
+          resourceName: nginx2
+          containerName: nginx2
+          keyKind: ${{ vars.MO_API_KIND__MAIN }}
+          token: ${{ secrets.MO_API_TOKEN__63FF515A77B8B12D3273__MAIN }}
